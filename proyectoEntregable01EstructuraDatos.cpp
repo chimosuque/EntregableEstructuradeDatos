@@ -21,7 +21,7 @@ struct Tarea {
         descripcion = desc;
         curso = c;
         fechaLimite = f;
-        dificultad = d;
+        dificultad = d; 
         prioridad = p;
         estado = e;
         tipo = tp;
@@ -30,7 +30,17 @@ struct Tarea {
 };
 
 // ==================== FUNCIONES PRINCIPALES ====================
-
+//verificar que id no repita
+bool idExistente(Tarea *inicio, int idBuscado) {
+    Tarea *temp = inicio;
+    while (temp != NULL) {
+        if (temp->id == idBuscado) {
+            return true;
+        }
+        temp = temp->siguiente;
+    }
+    return false;
+}
 // Agregar una nueva tarea
 void agregarTarea(Tarea *&inicio) {
     int cantidad;
@@ -44,6 +54,10 @@ void agregarTarea(Tarea *&inicio) {
 
         cout << "\n[1] Ingrese ID de la tarea: ";
         cin >> id;
+        while (idExistente(inicio, id)) {
+    	cout << "El ID ya existe. Ingrese otro: ";
+    	cin >> id;
+}
         cin.ignore();
         cout << "[2] Ingrese titulo de la tarea: ";
         getline(cin, titulo);
